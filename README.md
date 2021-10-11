@@ -28,7 +28,7 @@ http://htmlpreview.github.io/?https://github.com/Caleb-Huo/AWFisher/blob/master/
 ## Short tutorial 
 
 * Sinusoid assumption: 
-  * ![formula](https://render.githubusercontent.com/render/math?math=\color{white}\large\y=A\sin(w(t%2B\phi))%2B\varepsilon)
+  * ![formula](https://render.githubusercontent.com/render/math?math=\color{white}\large\y=A\sin(w(t%2B\phi))%2B\M%2B\varepsilon)
   * ![formula](https://render.githubusercontent.com/render/math?math=\color{white}\large\varepsilon\sim\N(0,\sigma^2))
   * ![formula](https://render.githubusercontent.com/render/math?math=\color{white}\large\A): Amplitude
   * ![formula](https://render.githubusercontent.com/render/math?math=\color{white}\large\varepsilon): Noise level
