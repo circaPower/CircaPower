@@ -16,12 +16,12 @@
 ##' @examples
 ##' CircaPower(n=NULL, power=0.8, r=1.5)
 ##' 
-##' n = 100
+##' n = 48
 ##' cts = seq(0,24,length.out = n+1)[-1]
 ##' A = 1
 ##' sigma = 1
 ##' r = A/sigma
-##' CircaPower(n, r=r, phi=0, period = 24, cts=cts, alpha = 0.05)
+##' CircaPower(n, r=r, phi=0, period = 24, cts=cts, alpha = 0.001)
 
 
 CircaPower = function(n=NULL, power=NULL, r=NULL, phi=0, period = 24, cts=NULL, ct_estimation="expected", alpha = 0.05){
@@ -42,10 +42,10 @@ CircaPower = function(n=NULL, power=NULL, r=NULL, phi=0, period = 24, cts=NULL, 
     
   }else if(!is.null(n)){
     if(ct_estimation == "expected"){
-      message("Since ct_estimation is 'expected', the expected sampling design factor is directly estimated from the circadian time points provided")
+      message("Since ct_estimation is 'expected' (default), the expected sampling design factor is directly estimated from the circadian time points provided.")
       d = sum(sin(w*(cts+phi))^2)/length(cts) #E[d]
     }else if(ct_estimation == "sampling"){
-      message("Since ct_estimation is 'sampling', circadian time points of size n will be draw from the Kernel density estimated from the circadian time points provided. The sampling design factor using these drawn samples")
+      message("Since ct_estimation is 'sampling', circadian time points of size n will be draw from the Kernel density estimated from the circadian time points provided. The sampling design factor using these drawn samples.")
       cts = cts %% period #fold cts into one cycle
       
       rep.cts = c(cts-period, cts, cts+period)#expand cts to 3 periods

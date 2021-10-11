@@ -44,12 +44,12 @@ Exactly one of the parameters 'n','power', 'r' and 'alpha' must be passed as NUL
 \examples{
 CircaPower(n=NULL, power=0.8, r=1.5)
 
-n = 100
+n = 48
 cts = seq(0,24,length.out = n+1)[-1]
 A = 1
 sigma = 1
 r = A/sigma
-CircaPower(n, r=r, phi=0, period = 24, cts=cts, alpha = 0.05)
+CircaPower(n, r=r, phi=0, period = 24, cts=cts, alpha = 0.001)
 }
 \author{
 Wei Zong, Zhiguang Huo
