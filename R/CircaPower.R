@@ -7,7 +7,7 @@
 ##' @param r Intrinsic effect size. r=A/\eqn{\sigma}, where A is the amplitude of the sinusoidal curve: \eqn{y = A \times sin(2\pi/period * (\phi + cts)) + M + \sigma}, and \eqn{\sigma} is the noise level of the independent Normal error term \eqn{N(0,\sigma)}.
 ##' @param phi Phase shift eqn{\phi} of the sinusoidal curve. Default is 0.
 ##' @param period Period of the sinusoidal curve. Default is 24.
-##' @param cts Circadian times of the putative samples.
+##' @param cts Circadian times of the putative samples. If cts is NULL, evenly-spaced circadian time design will be used. If cts is not NULL, 
 ##' @param ct_estimation If TRUE, we will calculate the sampling design factor using the observed circadian time; if FALSE, we will (1) perform kernel density estimation from the observed circadian time, (2) draw circadian times from the kernel density estimation, (3) calculate the sampling design factor using these drawn samples.
 ##' @param alpha Type I error control. Default is 0.05.
 ##' @return A list of arguments (including the computed one) augmented.
@@ -21,7 +21,7 @@
 ##' A = 1
 ##' sigma = 1
 ##' r = A/sigma
-##' CircaPower(n, A, sigma, phi=0, period = 24, cts=cts, alpha = 0.05)
+##' CircaPower(n, r=r, phi=0, period = 24, cts=cts, alpha = 0.05)
 
 
 CircaPower = function(n=NULL, power=NULL, r=NULL, phi=0, period = 24, cts=NULL, ct_estimation=TRUE, alpha = 0.05){

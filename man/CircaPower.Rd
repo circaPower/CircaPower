@@ -26,7 +26,7 @@ CircaPower(
 
 \item{period}{Period of the sinusoidal curve. Default is 24.}
 
-\item{cts}{Circadian times of the putative samples.}
+\item{cts}{Circadian times of the putative samples. If cts is NULL, evenly-spaced circadian time design will be used. If cts is not NULL,}
 
 \item{ct_estimation}{If TRUE, we will calculate the sampling design factor using the observed circadian time; if FALSE, we will (1) perform kernel density estimation from the observed circadian time, (2) draw circadian times from the kernel density estimation, (3) calculate the sampling design factor using these drawn samples.}
 
@@ -49,7 +49,7 @@ cts = seq(0,24,length.out = n+1)[-1]
 A = 1
 sigma = 1
 r = A/sigma
-CircaPower(n, A, sigma, phi=0, period = 24, cts=cts, alpha = 0.05)
+CircaPower(n, r=r, phi=0, period = 24, cts=cts, alpha = 0.05)
 }
 \author{
 Wei Zong, Zhiguang Huo
