@@ -23,8 +23,7 @@ install_github("https://github.com/circaPower/CircaPower")
 * Intrinsic effect size from public databases.
 * Circadian power calculation given irregular circadian time distribuiton.
 
-http://htmlpreview.github.io/?https://github.com/Caleb-Huo/CircaPower/blob/master/vignettes/CircaPower.html
-
+http://htmlpreview.github.io/?https://github.com/circaPower/CircaPower/blob/main/vignettes/CircaPower.html
 
 ## Short tutorial 
 
