@@ -1,5 +1,5 @@
 # CircaPower
-Github repository for circadian power calculation (AW-Fisher)
+Github repository for circadian power calculation (CircaPower)
 
 
 ## Install This Package from github
@@ -18,31 +18,25 @@ install_github("https://github.com/circaPower/CircaPower")
 
 ## Full tutorial (to be updated)
 
-* Including a real data example using mouse metabolism data of three tissues
-* Perform transcriptomic meta-analysis and differential expression pattern detection
+* Circadian power calculation (active design) when the circadian time are evenly spaced.
+* A case study how to perform circadian power calculation using mouse skeletal muscle pilot data
+* Circadian power calculation given irregular circadian time distribuiton.
 
 http://htmlpreview.github.io/?https://github.com/Caleb-Huo/AWFisher/blob/master/vignettes/AWFisher.html
 
 
-## Short tutorial (to be updated)
+## Short tutorial 
 
-* This short tutorial is about how to perform meta-analysis combining p-values from multiple studies.
-* Currently, only K=2, 3, ..., 100 (number of studies) are allowed in the R package.
+* Assuming the circadian time are evenly spaced (i.e., every 4 hours per cycle).
 
 ```{R}
-library(AWFisher)
+library(CircaPower)
 
-K <- 50 ## combining K studies
-G <- 10000 ## simulate G genes
+## Calculate power given (1) sample size n, (2) effect size r, and (3) alpha level
+CircaPower(n=12, r=1.5, alpha = 0.05)
 
-set.seed(15213)
-p.values = matrix(runif(K*G), ncol=K)
-res = AWFisher_pvalue(p.values)
-
-hist(res$pvalues, breaks=40)
-
-ks<-ks.test(res$pvalues, "punif", min=0, max=1, alternative = "two.sided"); ## KS test to test if the AW p-values are uniformly distributed under the null
-ks
+## Calculate sample size given (1) pre-specified power, (2) effect size r, and (3) alpha level
+CircaPower(power=0.8, r=1.5, alpha = 0.05)
 
 ```
 
