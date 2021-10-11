@@ -1,0 +1,71 @@
+---
+title: "CircaPower"
+output: rmarkdown::html_vignette
+date: "`r Sys.Date()`"
+vignette: >
+  %\VignetteIndexEntry{CircaPower}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(CircaPower)
+```
+
+
+# Introduction
+
+## Background
+
+Circadian power calculation blalala...
+
+## Statistical method
+
+Insert the figure, and write the formula.
+
+## About this tutorial
+
+This is a tutorial for the usage of the Circapower package.
+The major contents of this tutorial includes:
+
+- Circadian power calculation (active design) when the circadian time are evenly spaced.
+- A case study how to perform circadian power calculation using mouse skeletal muscle pilot data.
+- Intrinsic effect size from public databases.
+- Circadian power calculation given irregular circadian time distribuiton.
+
+# About the package
+
+## How to install the package
+
+To install this package, start R (version "3.0" or above) and enter:
+
+```{r, eval=FALSE}
+library(devtools)
+install_github("https://github.com/circaPower/CircaPower") 
+```
+
+## How to cite the package
+
+
+- Wei Zong, Marianne L. Seney, Kyle D. Ketchesin, Michael T. Gorczyca, Andrew C. Liu, Karyn A. Esser, George C. Tseng*, Colleen A. McClung* and Zhiguang Huo*. Experimental Design and Power Calculation in Omics Circadian Rhythmicity Detection. (Submitted, *: co-coresponding authors)
+
+- The manuscript can be found here: to be updated
+
+## Maintainer
+
+Wei Zong (wez97@pitt.edu) and Zhiguang Huo (zhuo@ufl.edu)
+
+
+# Examples
+
+## 1. Circadian power calculation (active design) when the circadian time are evenly spaced.
+## 2. A case study how to perform circadian power calculation using mouse skeletal muscle pilot data.
+## 3. Intrinsic effect size from public databases.
+## 4. Circadian power calculation given irregular circadian time distribuiton.

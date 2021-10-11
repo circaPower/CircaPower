@@ -19,10 +19,11 @@ install_github("https://github.com/circaPower/CircaPower")
 ## Full tutorial (to be updated)
 
 * Circadian power calculation (active design) when the circadian time are evenly spaced.
-* A case study how to perform circadian power calculation using mouse skeletal muscle pilot data
+* A case study how to perform circadian power calculation using mouse skeletal muscle pilot data.
+* Intrinsic effect size from public databases.
 * Circadian power calculation given irregular circadian time distribuiton.
 
-http://htmlpreview.github.io/?https://github.com/Caleb-Huo/AWFisher/blob/master/vignettes/AWFisher.html
+http://htmlpreview.github.io/?https://github.com/Caleb-Huo/CircaPower/blob/master/vignettes/CircaPower.html
 
 
 ## Short tutorial 
@@ -32,7 +33,7 @@ http://htmlpreview.github.io/?https://github.com/Caleb-Huo/AWFisher/blob/master/
   * ![formula](https://render.githubusercontent.com/render/math?math=\color{white}\large\varepsilon\sim\N(0,\sigma^2))
   * ![formula](https://render.githubusercontent.com/render/math?math=\color{white}\large\A): Amplitude
   * ![formula](https://render.githubusercontent.com/render/math?math=\color{white}\large\varepsilon): Noise level
-  * ![formula](https://render.githubusercontent.com/render/math?math=\color{white}\large\r=\A/\varepsilon): Intrinsic effect size
+  * ![formula](https://render.githubusercontent.com/render/math?math=\color{white}\large\r=\A/\varepsilon): Intrinsic effect size. Usually r could be estimated from your pilot data. If there is no pilot data, please refers to the full tutorial, where we documented the intrinsic effect sizes from public databases for varies tissues in human and mouse.
 * Assuming the circadian time are evenly spaced (i.e., every 4 hours per cycle).
 
 ```{R}

@@ -43,3 +43,4 @@ vignettes/*.pdf
 ## mac files
 *.DS_Store
 */*.DS_Store
+inst/doc
