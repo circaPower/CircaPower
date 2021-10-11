@@ -7,8 +7,8 @@
 ##' @param r Intrinsic effect size. r=A/\eqn{\sigma}, where A is the amplitude of the sinusoidal curve: \eqn{y = A * sin(2\pi/period * (\phi + cts)) + M + \sigma}, and \eqn{\sigma} is the noise level of the independent Normal error term \eqn{N(0,\sigma^2)}.
 ##' @param phi Phase shift eqn{\phi} of the sinusoidal curve. Default is 0.
 ##' @param period Period of the sinusoidal curve. Default is 24.
-##' @param cts Circadian times of the putative samples. If cts is NULL, evenly-spaced circadian time design will be used. If cts is not NULL, 
-##' @param ct_estimation If TRUE, we will calculate the sampling design factor using the observed circadian time; if FALSE, we will (1) perform kernel density estimation from the observed circadian time, (2) draw circadian times from the kernel density estimation, (3) calculate the sampling design factor using these drawn samples.
+##' @param cts Circadian times of the putative samples. If cts is NULL, evenly-spaced circadian time design will be used. If cts is not NULL, see more options on ct_estimation.
+##' @param ct_estimation If ct_estimation=='expected' (default), we will calculate the sampling design factor directly using the observed circadian time; if ct_estimation=='sampling', we will (1) perform kernel density estimation from the observed circadian time, (2) draw n circadian times from the kernel density estimation, (3) calculate the sampling design factor using these drawn samples.
 ##' @param alpha Type I error control. Default is 0.05.
 ##' @return A list of arguments (including the computed one) augmented.
 ##' @author Wei Zong, Zhiguang Huo
@@ -24,7 +24,7 @@
 ##' CircaPower(n, r=r, phi=0, period = 24, cts=cts, alpha = 0.05)
 
 
-CircaPower = function(n=NULL, power=NULL, r=NULL, phi=0, period = 24, cts=NULL, ct_estimation=TRUE, alpha = 0.05){
+CircaPower = function(n=NULL, power=NULL, r=NULL, phi=0, period = 24, cts=NULL, ct_estimation="expected", alpha = 0.05){
   
   if (sum(sapply(list(n, r, power, alpha), is.null)) != 1){
     stop("exactly one of n, r, power, and alpha must be NULL")		
@@ -37,21 +37,15 @@ CircaPower = function(n=NULL, power=NULL, r=NULL, phi=0, period = 24, cts=NULL, 
     d = 0.5
     
   }else if(is.null(n)){
-    message("The sample size n unspecified, expected sampling design factor is estimated from the circadian time points provided.")
+    message("The sample size n unspecified, expected sampling design factor is directly estimated from the circadian time points provided. ct_estimation argument is disabled.")
     d = sum(sin(w*(cts+phi))^2)/length(cts) #E[d]
     
-  }else if(!is.null(n) & length(cts) == n){
-    message("The sample size n is the same as the number of circadian time points, which will be used directly to calculate the expected sampling design factor.")
-    d = sum(sin(w*(cts+phi))^2)/n
-    
-  }else if(!is.null(n) & length(cts) != n){
-    if(ct_estimation == TRUE){
-      message("The sample size n is different from the number of circadian time points. Since ct_estimation is TRUE,
-              the expected sampling design factor is estimated from the circadian time points provided")
+  }else if(!is.null(n)){
+    if(ct_estimation == "expected"){
+      message("Since ct_estimation is 'expected', the expected sampling design factor is directly estimated from the circadian time points provided")
       d = sum(sin(w*(cts+phi))^2)/length(cts) #E[d]
-    }else{
-      message("The sample size n is different from the number of circadian time points. Since ct_estimation is FALSE,
-              circadian time points of size n will be draw from the Kernel density estimated from the circadian time points provided")
+    }else if(ct_estimation == "sampling"){
+      message("Since ct_estimation is 'sampling', circadian time points of size n will be draw from the Kernel density estimated from the circadian time points provided. The sampling design factor using these drawn samples")
       cts = cts %% period #fold cts into one cycle
       
       rep.cts = c(cts-period, cts, cts+period)#expand cts to 3 periods
@@ -61,9 +55,11 @@ CircaPower = function(n=NULL, power=NULL, r=NULL, phi=0, period = 24, cts=NULL, 
       
       sample_cts = sample(x.dens, n, prob = y.dens)
       d = sum(sin(w*(sample_cts+phi))^2)/length(sample_cts)
+    } else {
+      stop("internal error 1, please report this bug at https://github.com/circaPower/CircaPower/issues")    	
     }
   }else {
-    stop("internal error 1, please report this bug at https://github.com/circaPower/CircaPower/issues")
+    stop("internal error 2, please report this bug at https://github.com/circaPower/CircaPower/issues")
   }
   
   p.body = quote({
@@ -84,7 +80,7 @@ CircaPower = function(n=NULL, power=NULL, r=NULL, phi=0, period = 24, cts=NULL, 
     r = uniroot(function(r) eval(p.body) - power, c(1e-10,1e+5))$root
   }else if (is.null(alpha))
     alpha = uniroot(function(alpha) eval(p.body) - power, c(1e-10, 1 - 1e-10))$root
-  else stop("internal error 2, please report this bug at https://github.com/circaPower/CircaPower/issues")
+  else stop("internal error 3, please report this bug at https://github.com/circaPower/CircaPower/issues")
 
   
   
