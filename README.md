@@ -27,13 +27,14 @@ http://htmlpreview.github.io/?https://github.com/circaPower/CircaPower/blob/main
 
 ## Short tutorial 
 
-* Sinusoid assumption: 
-  * ![formula](https://render.githubusercontent.com/render/math?math=\color{white}\large\y=A\sin(w(t%2B\phi))%2B\M%2B\varepsilon)
-  * ![formula](https://render.githubusercontent.com/render/math?math=\color{white}\large\varepsilon\sim\N(0,\sigma^2))
-  * ![formula](https://render.githubusercontent.com/render/math?math=\color{white}\large\A): Amplitude
-  * ![formula](https://render.githubusercontent.com/render/math?math=\color{white}\large\varepsilon): Noise level
-  * ![formula](https://render.githubusercontent.com/render/math?math=\color{white}\large\r=\A/\varepsilon): Intrinsic effect size. Usually r could be estimated from your pilot data. If there is no pilot data, please refers to the full tutorial, where we documented the intrinsic effect sizes from public databases for varies tissues in human and mouse.
-* Assuming the circadian time are evenly spaced (i.e., every 4 hours per cycle).
+* Model assumption: 
+  + $y_i=A\sin(\omega(t_i+\phi))+M+\varepsilon_i$
+  + $\varepsilon_i \overset{iid}{\sim}  \textit{N}(0, \sigma^2)$
+  + $A$: Amplitude
+  + $\varepsilon_i$: Noise level
+  + $r=\frac{A}{\sigma}$: Intrinsic effect size. Usually r could be estimated from your pilot data. If there is no pilot data, please refers to the full tutorial, where we documented the intrinsic effect sizes from public databases for varies tissues in human and mouse.\
+  
+* Example 1 (active design): assuming the circadian time are evenly spaced (i.e., every 4 hours per cycle).
 
 ```{R}
 library(CircaPower)
@@ -45,4 +46,22 @@ CircaPower(n=12, r=1.5, alpha = 0.05)
 CircaPower(power=0.8, r=1.5, alpha = 0.05)
 
 ```
+
+* Example 2 (passive design): assuming the irregular circadian time distribution (i.e., in human postmortem brain studies).
+
+```{R}
+library(CircaPower)
+
+## Use observed time of death from the human post-mortem brain transcriptomic study on Brodmann's area 11 and 47 in the prefrontal cortex as an example.
+data(cts_Chen)
+
+## Calculate power given (1) sample size n, (2) intrinsic effect size r, (3) irregular circadian times and (3) alpha level
+CircaPower(n=100, r=0.4, cts=cts_Chen, alpha = 0.05)
+
+## Calculate sample size given (1) pre-specified power, (2) intrinsic effect size r, (3) irregular circadian times and (3) alpha level
+CircaPower(power=0.75, r=0.4, cts=cts_Chen, alpha = 0.05)
+
+```
+  
+
 
