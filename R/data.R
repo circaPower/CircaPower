@@ -1,4 +1,4 @@
-#' Time of death vectors from the human post-mortem brain transcriptomic studies.
+#' Time of death vectors from the three human post-mortem brain transcriptomic studies.
 #'
 #' @title Human Postmortem Brain Data Time of Death
 #'
