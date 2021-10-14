@@ -22,7 +22,7 @@ CircaPower(
 
 \item{r}{Intrinsic effect size. r=A/\eqn{\sigma}, where A is the amplitude of the sinusoidal curve: \eqn{y = A * sin(2\pi/period * (\phi + cts)) + M + \sigma}, and \eqn{\sigma} is the noise level of the independent Normal error term \eqn{N(0,\sigma^2)}.}
 
-\item{phi}{Phase shift eqn{\phi} of the sinusoidal curve. Default is 0.}
+\item{phi}{Phase shift \eqn{\phi} of the sinusoidal curve. Default is 0.}
 
 \item{period}{Period of the sinusoidal curve. Default is 24.}
 

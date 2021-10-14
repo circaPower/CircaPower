@@ -8,3 +8,5 @@ src/.DS_Store
 R/.DS-Store
 .DS_Store
 .Rbuildignore~
+^.*\.Rproj$
+^\.Rproj\.user$

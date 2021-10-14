@@ -14,3 +14,5 @@ Suggests:
     rmarkdown,
     knitr
 VignetteBuilder: knitr
+Imports: 
+    stats
