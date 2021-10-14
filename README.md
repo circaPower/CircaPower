@@ -34,7 +34,7 @@ http://htmlpreview.github.io/?https://github.com/circaPower/CircaPower/blob/main
   + ![equation](https://latex.codecogs.com/gif.latex?%5Csigma): Noise level
   + ![equation](https://latex.codecogs.com/gif.latex?r%3DA/%5Csigma): Intrinsic effect size. Usually r could be estimated from your pilot data. If there is no pilot data, please refers to the full tutorial, where we documented the intrinsic effect sizes from public databases for varies tissues in human and mouse.
   
-* Example 1 (active design): assuming the circadian time are evenly spaced (i.e., every 4 hours per cycle).
+* Example 1 (active design): assuming the evenly spaced circadian time distribution (i.e., every 4 hours per cycle).
 
 ```{R}
 library(CircaPower)
