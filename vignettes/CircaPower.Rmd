@@ -2,6 +2,8 @@
 title: "CircaPower"
 output: rmarkdown::html_vignette
 bibliography: ref.bib
+author:
+- name: Wei Zong, Zhiguang Huo
 date: "`r Sys.Date()`"
 vignette: >
   %\VignetteIndexEntry{CircaPower}
@@ -26,11 +28,17 @@ library(CircaPower)
 
 ## Background
 
-Circadian clocks are 24-hour endogenous oscillators in physiological and behavioral processes. Though recent transcriptomic studies have been successful in revealing the circadian rhythmicity in gene expression, the power calculation and study design for omics circadian analysis have not been explored. CircaPower is an analytical framework for statistical power calculation in circadian gene detection analysis. It is based on the cosinor model, which is the only rhythmicity detection model with explicitly defined effect size and data variability and allows for irregular Zeitgeber time (ZT; standardized diurnal time with ZT0 for the beginning of day and ZT12 for the beginning of night) distribution. CircaPower is designed for fast and accurate power caculation for both passive and active sampling design. In passive design, investigators have no control of the collected ZT. Such a passive design is commonly seen in studies with human tissues that are difficult to obtain e.g., post-mortem brain tissues (@chen2016effects, @li2013circadian, @seney2019diurnal). In contrast, investigators have full control of the sample collection time in an active sampling design. Such an active design is commonly seen in animal studies (@zhang2014circadian)or human blood studies (@moller2013effects).
+Circadian clocks are 24-hour endogenous oscillators in physiological and behavioral processes. Though recent transcriptomic studies have been successful in revealing the circadian rhythmicity in gene expression, the power calculation and study design for omics circadian analysis have not been explored.
+Thus we developed an analytical framework for statistical power calculation in circadian gene detection analysis (namely CircaPower).
+
+In terms of study design, 
+we consider two types of sampling design: passive or active sampling design. 
+In passive design, investigators have no control of the collected circadian time. Such a passive design is commonly seen in studies with human tissues that are difficult to obtain e.g., post-mortem brain tissues (@chen2016effects, @li2013circadian, @seney2019diurnal). In contrast, investigators have full control of the sample collection time in an active sampling design. Such an active design is commonly seen in animal studies (@zhang2014circadian) or human blood studies (@moller2013effects).
+
 
 
 ## Statistical method
-The sinusoidal wave curve assumed in the cosinor model (@cornelissen2014cosinor) is illustrated in Figure 1, where y is the expression value for a gene, t is the ZT, M is the MESOR (Midline Estimating Statistic Of Rhythm, a rhythm-adjusted mean), A is the amplitude and $\phi$ is the phase shift. $\omega$ is the frequency of the sinusoidal wave i.e, $\omega = \frac{2\pi}{Period}$. Without loss of generality, we set $period = 24$ hours to mimic the diurnal period. \\
+The sinusoidal wave curve assumed in the cosinor model (@cornelissen2014cosinor) is illustrated in Figure 1, where y is the expression value for a gene, t is the Zeitgeber time (ZT; standardized diurnal time with ZT0 for the beginning of day and ZT12 for the beginning of night), M is the MESOR (Midline Estimating Statistic Of Rhythm, a rhythm-adjusted mean), A is the amplitude and $\phi$ is the phase shift. $\omega$ is the frequency of the sinusoidal wave i.e, $\omega = \frac{2\pi}{Period}$. Without loss of generality, we set $period = 24$ hours to mimic the diurnal period. 
 
 For a given sample $i$ ($1\le i \le n$, $n$ is the total number of samples), denote by $y_i$ the expression value of a gene and 
 $t_i$ the observed ZT. 
@@ -49,28 +57,16 @@ where $\sigma$ is the noise level.
 knitr::include_graphics("circadianCurve.png")
 ```
 
-Equivalently, we could re-write the model as 
-
-\begin{equation}
-\label{eq:sin2}
-y_i=E\sin(\omega t_i) + H\cos(\omega t_i) +M+\varepsilon_i, 
-\end{equation}
-
-\noindent where $E = A \cos (\omega \phi)$, and $H = A \sin (\omega \phi)$. It turns into a linear regression problem with the corresponding F statistics as $F^{stat} = \frac{\frac{TSS - RSS}{r - 1}}{\frac{RSS}{n-r}}$ where where $RSS = \sum^n_{i=1} (y_i-\hat{y_i})^2$, $TSS = \sum^n_{i=1} (y_i-\bar{y})^2$, $\hat{y_i} = \hat{A} \sin(\omega(t_i+\hat{\phi})) + \hat{M}$, $\bar{y} = \sum_i y_i / n$, with $\hat{A}$, $\hat{\phi}$, and  $\hat{M}$ estimated under least squared loss.\
-
-\
-
-From the linear model theory, under the null hypothesis that there is no circadian rhythmicity, i.e., $A=0$, or equivalently, $E=H=0$,
+Based on this linear model framework, we could derive a F test statistic $F^{stat}$.
+From the linear model theory, under the null hypothesis that there is no circadian rhythmicity (i.e., $A=0$),
 $$F^{stat} \sim f_0(\cdot|2, n - 3),$$
-where $2$ and $n-3$ are the degrees of freedom of the $F$ distribution, and $f_0$ denotes a regular $F$ distribution with non-centrality parameter $0$.\
+where $2$ and $n-3$ are the degrees of freedom of the $F$ distribution, and $f_0$ denotes a regular $F$ distribution with non-centrality parameter $0$.
 
-\
 
-Under the alternative hypothesis that there exists circadian rhythmicity pattern, i.e., $A \ne 0$, or equivalently, $E\ne 0$ or $H\ne 0$, 
-$$F^{stat} \sim  f_\lambda(\cdot|2,n-3), \lambda  = \frac{A^2 }{\sigma^2} \sum_i \sin^2(w(t_i + \phi))$$
-where $2$ and $n-3$ are the degrees of freedom of the $F$ distribution, and $f_\lambda$ denotes a non-central $F$ distribution with non-centrality parameter $\lambda$.\
+Under the alternative hypothesis that there exists circadian rhythmicity pattern (i.e., $A \ne 0$), 
+$$F^{stat} \sim  f_\lambda(\cdot|2,n-3)$$
+where $2$ and $n-3$ are the degrees of freedom of the $F$ distribution, and $f_\lambda$ denotes a non-central $F$ distribution with non-centrality parameter $\lambda$, with $\lambda  = \frac{A^2 }{\sigma^2} \sum_i \sin^2(w(t_i + \phi))$. 
 
-\
 
 Figure 2 shows the relationship between the null and alternative distributions. By assuming the rejection boundary is at alpha level $\alpha$, the relationship between $\alpha$ and the power $1-\beta$ is:
 $$F_{\lambda}^{-1} (\beta| 2 , n - 3) = F_0^{-1} (1 - \alpha| 2 , n - 3)$$
@@ -121,7 +117,20 @@ Wei Zong (wez97@pitt.edu) and Zhiguang Huo (zhuo@ufl.edu)
 
 ## 1. Circadian power calculation (active design) when the circadian times are evenly spaced.
 
-Because of the phase invariant property of evenly-spaced sampling design, the detection power only depends on the total number of samples n and intrinsic effect size r given type I error control level $\alpha$.  
+In an active sampling design, investigators have full control of the sample collection time.
+For a typical active design,
+researchers usually need to control (i) the number of ZT points per cycle, 
+(ii) the number of replicated samples at each time point within a cycle, 
+and (iii) the number of cycles.
+Because of the periodicity property of the sinusoidal curve in the cosinor model,
+the number of replicated samples at each time point within a cycle and the number of cycles are equivalent in the sense that 
+2 replicated samples at each time point across 1 cycle will result in the same statistical estimation with only one sample at each time point across 2 cycles.
+Therefore, for the ease of discussion, 
+we summarize the following two key parameters for an active design:
+(i) number of ZT points $N_T$ per cycle;
+(ii) total number of samples $n$.
+The number of replicated samples (at the same ZT across all cycles) could be calculated as $n/N_T$.
+Because of the phase invariant property of evenly-spaced sampling design, the detection power only depends on the total number of samples $N_T$ and intrinsic effect size r given type I error control level $\alpha$.  
 ```{r, eval=FALSE}
 library(CircaPower)
 
@@ -135,7 +144,10 @@ CircaPower(power=0.8, r=1.5, alpha = 0.05)
   
 ## 2. Circadian power calculation (passive design) given irregular circadian time distribuiton.
 
-For irregular circadian time distribuiton, the sampling design factor d is dependent on the phase value $\phi$ which needs to be pre-specified. 
+In terms of study design, 
+we consider two types of sampling design: passive or active sampling design. 
+In passive design, investigators have no control of the collected circadian time. Such a passive design is commonly seen in studies with human tissues that are difficult to obtain e.g., post-mortem brain tissues.
+Under this scenario, the sampling design factor d is dependent on the phase value $\phi$ which needs to be pre-specified. 
 
 When the number of given irregular circadian times is different from the desired sample size, our package provides two estimation approaches for estimating the sampling design factor d in power calculation: 
 
@@ -163,7 +175,81 @@ For the inverse problem of deriving sample size given pre-specified power, the "
 CircaPower(power=0.75, r=0.4, phi=0, cts=cts_Chen, alpha = 0.05)
 
 ```
+
 ## 3. A case study how to perform circadian power calculation using mouse skeletal muscle pilot data.
+
+To demonstrate how to perform circadian power calculation using pilot dataset from scratch,
+we utilize a circadian gene expression data in mouse with skeletal muscle, which is part of the mouse pan-tissue gene expression circadian microarray data (@zhang2014circadian).
+Detailed description of this dataset has been described in previous literature (@hodge2015endogenous).
+Briefly, 
+24 mouse muscle samples were collected (every 2 hours) across 2 full cycles.
+The data can be loaded using the following way:
+
+```{r}
+data(mus_expr)
+data(mus_pheno)
+stopifnot(colnames(mus_expr) == mus_pheno$geo_accession)
+dim(mus_expr)
+head(mus_pheno)
+```
+
+
+With this pilot data, we perform genome-wide circadian rhythmicity detection using the cosinor method (@dinglikelihood). This step may take 30 seconds.
+
+```{r}
+tt <- mus_pheno$CT
+i <- 1
+
+thisResult <- data.frame(genes = rownames(mus_expr), 
+	amp =NA, phase = NA, peakTime = NA, basal = NA, sigmaA2=NA, R2 = NA, pvalue = NA
+)
+
+for(gg in 1:nrow(mus_expr)){
+	if(gg %% 1000 == 0){
+		#print(gg)
+	}
+	yy <- mus_expr[gg, ]
+	aFtest <- LR_rhythmicity(tt, yy) ## Wald test
+	
+	thisResult$amp[gg] <- aFtest$amp
+	thisResult$phase[gg] <- aFtest$phase
+	thisResult$peakTime[gg] <- (6 - aFtest$phase) %% 24
+	thisResult$basal[gg] <- aFtest$offset
+	thisResult$sigmaA2[gg] <- aFtest$sigmaA2
+	thisResult$R2[gg] <- aFtest$R2
+	thisResult$pvalue[gg] <- aFtest$pvalue
+}
+thisResult <- thisResult[order(thisResult$pvalue),] 
+```
+
+Under $p<0.001$, we identify 716 significant genes showing circadian pattern.
+
+```{r}
+sum(thisResult$pvalue < 0.001)
+```
+
+We similarly estimate the intrinsic effect sizes for:
+(i) median $r$ of the 7 core circadian genes;
+(ii) minimum $r$ of the top 100 significant circadian genes.
+
+```{r}
+coreCircadianGenes <- c("Arntl", "Dbp", "Nr1d1", "Nr1d2", "Per1", "Per2", "Per3")
+thisResult_core7 <- thisResult[thisResult$genes %in% coreCircadianGenes,]
+r_core7 <- thisResult_core7$amp/sqrt(thisResult_core7$sigmaA2)
+print(median(r_core7))
+
+  
+thisResult_top100 <- thisResult[1:100,] ## please make sure this result is sorted by p-value
+r_top100 <- thisResult_top100$amp/sqrt(thisResult_top100$sigmaA2)
+print(min(r_top100))
+```
+
+The resulting intrinsic effect sizes are 3.58 and 2.23 respectively. 
+By assuming different $\alpha$ to be 0.05, 0.01, 0.001,
+the power curves with respect to sample size are shown in Figure~S4. We observe that $n=12$
+can achieve 97.1\% and 50.5\% detection power for the two intrinsic effect sizes at $\alpha=0.001$. 
+
+
 We first estimate the intrinsic effect sizes from this pilot data for: (i) median r of the 7 core circadian genes; (ii) minimum r of the top 100 significant circadian genes. The resulting intrinsic effect sizes are 3.58 and 2.23 respectively. Then, we can calculate the power at any desired sample size by inserting these estimated r.
 
 ```{r, eval=FALSE}

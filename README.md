@@ -18,10 +18,11 @@ install_github("https://github.com/circaPower/CircaPower")
 
 ## Full tutorial (to be updated)
 
-* Circadian power calculation (active design) when the circadian time are evenly spaced.
-* A case study how to perform circadian power calculation using mouse skeletal muscle pilot data.
-* Intrinsic effect size from public databases.
-* Circadian power calculation given irregular circadian time distribution.
+- Circadian power calculation (active design) when the circadian times are evenly spaced.
+- Circadian power calculation (passive design) given irregular circadian time distribuiton.
+- A case study how to perform circadian power calculation using mouse skeletal muscle pilot data.
+- Intrinsic effect size from public databases.
+
 
 http://htmlpreview.github.io/?https://github.com/circaPower/CircaPower/blob/main/vignettes/CircaPower.html
 
