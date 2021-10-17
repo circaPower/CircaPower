@@ -18,7 +18,7 @@ data(cts_Seney)
 data(cts_Ketchesin)
 }
 \description{
-Time of death vectors from the human post-mortem brain transcriptomic studies.
+Time of death vectors from the three human post-mortem brain transcriptomic studies.
 }
 \references{
 Seney, M. L., Cahill, K., Enwright, J. F., Logan, R. W., Huo, Z., Zong, W., ... & McClung, C. A. (2019). Diurnal rhythms in gene expression in the prefrontal cortex in schizophrenia. Nature communications, 10(1), 1-11.
