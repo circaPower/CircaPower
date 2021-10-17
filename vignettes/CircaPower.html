@@ -314,7 +314,6 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 
 
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(CircaPower)</a></code></pre></div>
 <div id="introduction" class="section level1">
 <h1>Introduction</h1>
 <div id="background" class="section level2">
@@ -346,7 +345,7 @@ Figure 1: The sinusoidal wave curve underlying circadian rhythmicity power calcu
 Figure 2: the relationship between power and type I control in detecting circadian rhythmicity. Black curve: the density function of the F statistics under the null distribution; Blue curve: the density function of the F statistics under the alternative distribution; Red dashed line: the decision boundary (i.e., <span class="math inline">\(F^*\)</span>).
 </p>
 </div>
-<p>Under fixed type I error control <span class="math inline">\(\alpha\)</span>, the detection power depends on the total effect size <span class="math inline">\(\lambda\)</span> which can be decomposed into three factors: (1) sample size <span class="math inline">\(n\)</span>; (2) intrinsic effect size <span class="math inline">\(r=A/\sigma\)</span>; (3) sampling design factor <span class="math inline">\(d = \frac{1}{n}\sum_{i=1}^n \sin^2(w(t_i + \phi))\)</span>. In our paper, we show that for active design (i.e. evenly spaced ZT distribuiton), the sampling design factor <span class="math inline">\(d\)</span> is a constant of <span class="math inline">\(\frac{1}{2}\)</span> independent of the <span class="math inline">\(\phi\)</span> as long as the number of sampling times is greater or equal to 3 (i.e., phase-invariant property).</p>
+<p>Under fixed type I error control <span class="math inline">\(\alpha\)</span>, the detection power depends on the total effect size <span class="math inline">\(\lambda\)</span> which can be decomposed into three factors: (1) <strong>sample size <span class="math inline">\(n\)</span></strong>; (2) <strong>intrinsic effect size <span class="math inline">\(r=A/\sigma\)</span></strong>; (3) <strong>sampling design factor <span class="math inline">\(d = \frac{1}{n}\sum_{i=1}^n \sin^2(w(t_i + \phi))\)</span></strong>. In our paper, we show that for active design (i.e. evenly spaced ZT distribuiton), the sampling design factor <span class="math inline">\(d\)</span> is a constant of <span class="math inline">\(\frac{1}{2}\)</span> independent of the <span class="math inline">\(\phi\)</span> as long as the number of sampling times is greater or equal to 3 (i.e., phase-invariant property).</p>
 </div>
 <div id="about-this-tutorial" class="section level2">
 <h2>About this tutorial</h2>
@@ -364,8 +363,8 @@ Figure 2: the relationship between power and type I control in detecting circadi
 <div id="how-to-install-the-package" class="section level2">
 <h2>How to install the package</h2>
 <p>To install this package, start R (version “3.0” or above) and enter:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">library</span>(devtools)</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw">install_github</span>(<span class="st">&quot;https://github.com/circaPower/CircaPower&quot;</span>) </a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(devtools)</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">install_github</span>(<span class="st">&quot;https://github.com/circaPower/CircaPower&quot;</span>) </a></code></pre></div>
 </div>
 <div id="how-to-cite-the-package" class="section level2">
 <h2>How to cite the package</h2>
@@ -384,44 +383,185 @@ Figure 2: the relationship between power and type I control in detecting circadi
 <div id="circadian-power-calculation-active-design-when-the-circadian-times-are-evenly-spaced." class="section level2">
 <h2>1. Circadian power calculation (active design) when the circadian times are evenly spaced.</h2>
 <p>In an active sampling design, investigators have full control of the sample collection time. For a typical active design, researchers usually need to control (i) the number of ZT points per cycle, (ii) the number of replicated samples at each time point within a cycle, and (iii) the number of cycles. Because of the periodicity property of the sinusoidal curve in the cosinor model, the number of replicated samples at each time point within a cycle and the number of cycles are equivalent in the sense that 2 replicated samples at each time point across 1 cycle will result in the same statistical estimation with only one sample at each time point across 2 cycles. Therefore, for the ease of discussion, we summarize the following two key parameters for an active design: (i) number of ZT points <span class="math inline">\(N_T\)</span> per cycle; (ii) total number of samples <span class="math inline">\(n\)</span>. The number of replicated samples (at the same ZT across all cycles) could be calculated as <span class="math inline">\(n/N_T\)</span>. Because of the phase invariant property of evenly-spaced sampling design, the detection power only depends on the total number of samples <span class="math inline">\(N_T\)</span> and intrinsic effect size r given type I error control level <span class="math inline">\(\alpha\)</span>.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">library</span>(CircaPower)</a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="co">## Calculate power given (1) sample size n, (2) intrinsic effect size r, and (3) alpha level</span></a>
-<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="kw">CircaPower</span>(<span class="dt">n=</span><span class="dv">12</span>, <span class="dt">r=</span><span class="fl">1.5</span>, <span class="dt">alpha =</span> <span class="fl">0.05</span>)</a>
-<a class="sourceLine" id="cb3-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="co">## Calculate sample size given (1) pre-specified power, (2) intrinsic effect size r, and (3) alpha level</span></a>
-<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="kw">CircaPower</span>(<span class="dt">power=</span><span class="fl">0.8</span>, <span class="dt">r=</span><span class="fl">1.5</span>, <span class="dt">alpha =</span> <span class="fl">0.05</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">library</span>(CircaPower)</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="co">## Calculate power given (1) sample size n, (2) intrinsic effect size r, and (3) alpha level</span></a>
+<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="kw">CircaPower</span>(<span class="dt">n=</span><span class="dv">12</span>, <span class="dt">r=</span><span class="fl">1.5</span>, <span class="dt">alpha =</span> <span class="fl">0.05</span>)</a>
+<a class="sourceLine" id="cb2-5" data-line-number="5"><span class="co">#&gt; No circadian time is specified, evenly-spaced circadian time design will be used.</span></a>
+<a class="sourceLine" id="cb2-6" data-line-number="6"><span class="co">#&gt; $n</span></a>
+<a class="sourceLine" id="cb2-7" data-line-number="7"><span class="co">#&gt; [1] 12</span></a>
+<a class="sourceLine" id="cb2-8" data-line-number="8"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb2-9" data-line-number="9"><span class="co">#&gt; $r</span></a>
+<a class="sourceLine" id="cb2-10" data-line-number="10"><span class="co">#&gt; [1] 1.5</span></a>
+<a class="sourceLine" id="cb2-11" data-line-number="11"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb2-12" data-line-number="12"><span class="co">#&gt; $power</span></a>
+<a class="sourceLine" id="cb2-13" data-line-number="13"><span class="co">#&gt; [1] 0.7938097</span></a>
+<a class="sourceLine" id="cb2-14" data-line-number="14"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb2-15" data-line-number="15"><span class="co">#&gt; $alpha</span></a>
+<a class="sourceLine" id="cb2-16" data-line-number="16"><span class="co">#&gt; [1] 0.05</span></a>
+<a class="sourceLine" id="cb2-17" data-line-number="17"></a>
+<a class="sourceLine" id="cb2-18" data-line-number="18"><span class="co">## Calculate sample size given (1) pre-specified power, (2) intrinsic effect size r, and (3) alpha level</span></a>
+<a class="sourceLine" id="cb2-19" data-line-number="19"><span class="kw">CircaPower</span>(<span class="dt">power=</span><span class="fl">0.8</span>, <span class="dt">r=</span><span class="fl">1.5</span>, <span class="dt">alpha =</span> <span class="fl">0.05</span>)</a>
+<a class="sourceLine" id="cb2-20" data-line-number="20"><span class="co">#&gt; No circadian time is specified, evenly-spaced circadian time design will be used.</span></a>
+<a class="sourceLine" id="cb2-21" data-line-number="21"><span class="co">#&gt; $n</span></a>
+<a class="sourceLine" id="cb2-22" data-line-number="22"><span class="co">#&gt; [1] 12</span></a>
+<a class="sourceLine" id="cb2-23" data-line-number="23"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb2-24" data-line-number="24"><span class="co">#&gt; $r</span></a>
+<a class="sourceLine" id="cb2-25" data-line-number="25"><span class="co">#&gt; [1] 1.5</span></a>
+<a class="sourceLine" id="cb2-26" data-line-number="26"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb2-27" data-line-number="27"><span class="co">#&gt; $power</span></a>
+<a class="sourceLine" id="cb2-28" data-line-number="28"><span class="co">#&gt; [1] 0.8</span></a>
+<a class="sourceLine" id="cb2-29" data-line-number="29"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb2-30" data-line-number="30"><span class="co">#&gt; $alpha</span></a>
+<a class="sourceLine" id="cb2-31" data-line-number="31"><span class="co">#&gt; [1] 0.05</span></a></code></pre></div>
 </div>
 <div id="circadian-power-calculation-passive-design-given-irregular-circadian-time-distribuiton." class="section level2">
 <h2>2. Circadian power calculation (passive design) given irregular circadian time distribuiton.</h2>
-<p>For irregular circadian time distribuiton, the sampling design factor d is dependent on the phase value <span class="math inline">\(\phi\)</span> which needs to be pre-specified.</p>
+<p>In terms of study design, we consider two types of sampling design: passive or active sampling design. In passive design, investigators have no control of the collected circadian time. Such a passive design is commonly seen in studies with human tissues that are difficult to obtain e.g., post-mortem brain tissues. Under this scenario, the sampling design factor d is dependent on the phase value <span class="math inline">\(\phi\)</span> which needs to be pre-specified.</p>
 <p>When the number of given irregular circadian times is different from the desired sample size, our package provides two estimation approaches for estimating the sampling design factor d in power calculation:</p>
 <ol style="list-style-type: decimal">
 <li>ct_estimation=“expected” where d is calculated from the cts provided directly;</li>
 <li>ct_estimation = “sampling” where n circadian times are first draw from the kernel density estimated from the empirical distribution of the cts provided and the n circadian times will be used for caclculating d.</li>
 </ol>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">library</span>(CircaPower)</a>
-<a class="sourceLine" id="cb4-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="co">## Use observed time of death from the human post-mortem brain transcriptomic study on Brodmann's area 11 and 47 in the prefrontal cortex as an example.</span></a>
-<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="kw">data</span>(cts_Chen)</a>
-<a class="sourceLine" id="cb4-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="co">## Calculate power given (1) sample size n, (2) intrinsic effect size r, (3) phase value phi, (4) irregular circadian times cts and (5) alpha level using cts provided for estimating d.</span></a>
-<a class="sourceLine" id="cb4-7" data-line-number="7"><span class="kw">CircaPower</span>(<span class="dt">n=</span><span class="dv">100</span>, <span class="dt">r=</span><span class="fl">0.4</span>, <span class="dt">phi=</span><span class="dv">0</span>, <span class="dt">cts=</span>cts_Chen, <span class="dt">ct_estimation=</span><span class="st">&quot;expected&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.05</span>)</a>
-<a class="sourceLine" id="cb4-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb4-9" data-line-number="9"><span class="co">## Calculate power given (1) sample size n, (2) intrinsic effect size r, (3) phase value phi, (4) irregular circadian times cts and (5) alpha level using sampling approach for estimating d.</span></a>
-<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="kw">CircaPower</span>(<span class="dt">n=</span><span class="dv">100</span>, <span class="dt">r=</span><span class="fl">0.4</span>, <span class="dt">phi=</span><span class="dv">0</span>, <span class="dt">cts=</span>cts_Chen, <span class="dt">ct_estimation=</span><span class="st">&quot;sampling&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.05</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">library</span>(CircaPower)</a>
+<a class="sourceLine" id="cb3-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="co">## Use observed time of death from the human post-mortem brain transcriptomic study on Brodmann's area 11 and 47 in the prefrontal cortex as an example.</span></a>
+<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="kw">data</span>(cts_Chen)</a>
+<a class="sourceLine" id="cb3-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="co">## Calculate power given (1) sample size n, (2) intrinsic effect size r, (3) phase value phi, (4) irregular circadian times cts and (5) alpha level using cts provided for estimating d.</span></a>
+<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="kw">CircaPower</span>(<span class="dt">n=</span><span class="dv">100</span>, <span class="dt">r=</span><span class="fl">0.4</span>, <span class="dt">phi=</span><span class="dv">0</span>, <span class="dt">cts=</span>cts_Chen, <span class="dt">ct_estimation=</span><span class="st">&quot;expected&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.05</span>)</a>
+<a class="sourceLine" id="cb3-8" data-line-number="8"><span class="co">#&gt; Since ct_estimation is 'expected' (default), the expected sampling design factor is directly estimated from the circadian time points provided.</span></a>
+<a class="sourceLine" id="cb3-9" data-line-number="9"><span class="co">#&gt; $n</span></a>
+<a class="sourceLine" id="cb3-10" data-line-number="10"><span class="co">#&gt; [1] 100</span></a>
+<a class="sourceLine" id="cb3-11" data-line-number="11"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb3-12" data-line-number="12"><span class="co">#&gt; $r</span></a>
+<a class="sourceLine" id="cb3-13" data-line-number="13"><span class="co">#&gt; [1] 0.4</span></a>
+<a class="sourceLine" id="cb3-14" data-line-number="14"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb3-15" data-line-number="15"><span class="co">#&gt; $power</span></a>
+<a class="sourceLine" id="cb3-16" data-line-number="16"><span class="co">#&gt; [1] 0.7562333</span></a>
+<a class="sourceLine" id="cb3-17" data-line-number="17"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb3-18" data-line-number="18"><span class="co">#&gt; $alpha</span></a>
+<a class="sourceLine" id="cb3-19" data-line-number="19"><span class="co">#&gt; [1] 0.05</span></a>
+<a class="sourceLine" id="cb3-20" data-line-number="20"></a>
+<a class="sourceLine" id="cb3-21" data-line-number="21"><span class="co">## Calculate power given (1) sample size n, (2) intrinsic effect size r, (3) phase value phi, (4) irregular circadian times cts and (5) alpha level using sampling approach for estimating d.</span></a>
+<a class="sourceLine" id="cb3-22" data-line-number="22"><span class="kw">CircaPower</span>(<span class="dt">n=</span><span class="dv">100</span>, <span class="dt">r=</span><span class="fl">0.4</span>, <span class="dt">phi=</span><span class="dv">0</span>, <span class="dt">cts=</span>cts_Chen, <span class="dt">ct_estimation=</span><span class="st">&quot;sampling&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.05</span>)</a>
+<a class="sourceLine" id="cb3-23" data-line-number="23"><span class="co">#&gt; Since ct_estimation is 'sampling', circadian time points of size n will be draw from the Kernel density estimated from the circadian time points provided. The sampling design factor using these drawn samples.</span></a>
+<a class="sourceLine" id="cb3-24" data-line-number="24"><span class="co">#&gt; $n</span></a>
+<a class="sourceLine" id="cb3-25" data-line-number="25"><span class="co">#&gt; [1] 100</span></a>
+<a class="sourceLine" id="cb3-26" data-line-number="26"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb3-27" data-line-number="27"><span class="co">#&gt; $r</span></a>
+<a class="sourceLine" id="cb3-28" data-line-number="28"><span class="co">#&gt; [1] 0.4</span></a>
+<a class="sourceLine" id="cb3-29" data-line-number="29"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb3-30" data-line-number="30"><span class="co">#&gt; $power</span></a>
+<a class="sourceLine" id="cb3-31" data-line-number="31"><span class="co">#&gt; [1] 0.699697</span></a>
+<a class="sourceLine" id="cb3-32" data-line-number="32"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb3-33" data-line-number="33"><span class="co">#&gt; $alpha</span></a>
+<a class="sourceLine" id="cb3-34" data-line-number="34"><span class="co">#&gt; [1] 0.05</span></a></code></pre></div>
 <p>For the inverse problem of deriving sample size given pre-specified power, the “expected” approach is used for estimating d.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="co">## Calculate sample size given (1) pre-specified power, (2) intrinsic effect size r, (3) phase value phi, (4) irregular circadian times cts and (3) alpha level.</span></a>
-<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="kw">CircaPower</span>(<span class="dt">power=</span><span class="fl">0.75</span>, <span class="dt">r=</span><span class="fl">0.4</span>, <span class="dt">phi=</span><span class="dv">0</span>, <span class="dt">cts=</span>cts_Chen, <span class="dt">alpha =</span> <span class="fl">0.05</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="co">## Calculate sample size given (1) pre-specified power, (2) intrinsic effect size r, (3) phase value phi, (4) irregular circadian times cts and (3) alpha level.</span></a>
+<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="kw">CircaPower</span>(<span class="dt">power=</span><span class="fl">0.75</span>, <span class="dt">r=</span><span class="fl">0.4</span>, <span class="dt">phi=</span><span class="dv">0</span>, <span class="dt">cts=</span>cts_Chen, <span class="dt">alpha =</span> <span class="fl">0.05</span>)</a>
+<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="co">#&gt; The sample size n unspecified, expected sampling design factor is directly estimated from the circadian time points provided. ct_estimation argument is disabled.</span></a>
+<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="co">#&gt; $n</span></a>
+<a class="sourceLine" id="cb4-5" data-line-number="5"><span class="co">#&gt; [1] 99</span></a>
+<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb4-7" data-line-number="7"><span class="co">#&gt; $r</span></a>
+<a class="sourceLine" id="cb4-8" data-line-number="8"><span class="co">#&gt; [1] 0.4</span></a>
+<a class="sourceLine" id="cb4-9" data-line-number="9"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="co">#&gt; $power</span></a>
+<a class="sourceLine" id="cb4-11" data-line-number="11"><span class="co">#&gt; [1] 0.75</span></a>
+<a class="sourceLine" id="cb4-12" data-line-number="12"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb4-13" data-line-number="13"><span class="co">#&gt; $alpha</span></a>
+<a class="sourceLine" id="cb4-14" data-line-number="14"><span class="co">#&gt; [1] 0.05</span></a></code></pre></div>
 </div>
 <div id="a-case-study-how-to-perform-circadian-power-calculation-using-mouse-skeletal-muscle-pilot-data." class="section level2">
 <h2>3. A case study how to perform circadian power calculation using mouse skeletal muscle pilot data.</h2>
+<p>To demonstrate how to perform circadian power calculation using pilot dataset from scratch, we utilize a circadian gene expression data in mouse with skeletal muscle, which is part of the mouse pan-tissue gene expression circadian microarray data (<span class="citation">Zhang et al. (2014)</span>). Detailed description of this dataset has been described in previous literature (<span class="citation">Hodge et al. (2015)</span>). Briefly, 24 mouse muscle samples were collected (every 2 hours) across 2 full cycles. The data can be loaded using the following way:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">library</span>(CircaPower)</a>
+<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="kw">data</span>(mus_expr)</a>
+<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="kw">data</span>(mus_pheno)</a>
+<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="kw">stopifnot</span>(<span class="kw">colnames</span>(mus_expr) <span class="op">==</span><span class="st"> </span>mus_pheno<span class="op">$</span>geo_accession)</a>
+<a class="sourceLine" id="cb5-5" data-line-number="5"><span class="kw">dim</span>(mus_expr)</a>
+<a class="sourceLine" id="cb5-6" data-line-number="6"><span class="co">#&gt; [1] 23283    24</span></a>
+<a class="sourceLine" id="cb5-7" data-line-number="7"><span class="kw">head</span>(mus_pheno)</a>
+<a class="sourceLine" id="cb5-8" data-line-number="8"><span class="co">#&gt;   geo_accession tissue CT</span></a>
+<a class="sourceLine" id="cb5-9" data-line-number="9"><span class="co">#&gt; 1    GSM1321230    Mus 18</span></a>
+<a class="sourceLine" id="cb5-10" data-line-number="10"><span class="co">#&gt; 2    GSM1321231    Mus 20</span></a>
+<a class="sourceLine" id="cb5-11" data-line-number="11"><span class="co">#&gt; 3    GSM1321232    Mus 22</span></a>
+<a class="sourceLine" id="cb5-12" data-line-number="12"><span class="co">#&gt; 4    GSM1321233    Mus 24</span></a>
+<a class="sourceLine" id="cb5-13" data-line-number="13"><span class="co">#&gt; 5    GSM1321234    Mus 26</span></a>
+<a class="sourceLine" id="cb5-14" data-line-number="14"><span class="co">#&gt; 6    GSM1321235    Mus 28</span></a></code></pre></div>
+<p>With this pilot data, we perform genome-wide circadian rhythmicity detection using the cosinor method (<span class="citation">Ding et al. (n.d.)</span>). This step may take 30 seconds.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw">library</span>(diffCircadian)</a>
+<a class="sourceLine" id="cb6-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb6-3" data-line-number="3">tt &lt;-<span class="st"> </span>mus_pheno<span class="op">$</span>CT</a>
+<a class="sourceLine" id="cb6-4" data-line-number="4">i &lt;-<span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb6-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb6-6" data-line-number="6">thisResult &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">genes =</span> <span class="kw">rownames</span>(mus_expr), </a>
+<a class="sourceLine" id="cb6-7" data-line-number="7">    <span class="dt">amp =</span><span class="ot">NA</span>, <span class="dt">phase =</span> <span class="ot">NA</span>, <span class="dt">peakTime =</span> <span class="ot">NA</span>, <span class="dt">basal =</span> <span class="ot">NA</span>, <span class="dt">sigmaA2=</span><span class="ot">NA</span>, <span class="dt">R2 =</span> <span class="ot">NA</span>, <span class="dt">pvalue =</span> <span class="ot">NA</span></a>
+<a class="sourceLine" id="cb6-8" data-line-number="8">)</a>
+<a class="sourceLine" id="cb6-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb6-10" data-line-number="10"><span class="cf">for</span>(gg <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(mus_expr)){</a>
+<a class="sourceLine" id="cb6-11" data-line-number="11">    <span class="cf">if</span>(gg <span class="op">%%</span><span class="st"> </span><span class="dv">1000</span> <span class="op">==</span><span class="st"> </span><span class="dv">0</span>){</a>
+<a class="sourceLine" id="cb6-12" data-line-number="12">        <span class="co">#print(gg)</span></a>
+<a class="sourceLine" id="cb6-13" data-line-number="13">    }</a>
+<a class="sourceLine" id="cb6-14" data-line-number="14">    yy &lt;-<span class="st"> </span>mus_expr[gg, ]</a>
+<a class="sourceLine" id="cb6-15" data-line-number="15">    aFtest &lt;-<span class="st"> </span><span class="kw">LR_rhythmicity</span>(tt, yy) <span class="co">## Wald test</span></a>
+<a class="sourceLine" id="cb6-16" data-line-number="16">    </a>
+<a class="sourceLine" id="cb6-17" data-line-number="17">    thisResult<span class="op">$</span>amp[gg] &lt;-<span class="st"> </span>aFtest<span class="op">$</span>amp</a>
+<a class="sourceLine" id="cb6-18" data-line-number="18">    thisResult<span class="op">$</span>phase[gg] &lt;-<span class="st"> </span>aFtest<span class="op">$</span>phase</a>
+<a class="sourceLine" id="cb6-19" data-line-number="19">    thisResult<span class="op">$</span>peakTime[gg] &lt;-<span class="st"> </span>(<span class="dv">6</span> <span class="op">-</span><span class="st"> </span>aFtest<span class="op">$</span>phase) <span class="op">%%</span><span class="st"> </span><span class="dv">24</span></a>
+<a class="sourceLine" id="cb6-20" data-line-number="20">    thisResult<span class="op">$</span>basal[gg] &lt;-<span class="st"> </span>aFtest<span class="op">$</span>offset</a>
+<a class="sourceLine" id="cb6-21" data-line-number="21">    thisResult<span class="op">$</span>sigmaA2[gg] &lt;-<span class="st"> </span>aFtest<span class="op">$</span>sigmaA2</a>
+<a class="sourceLine" id="cb6-22" data-line-number="22">    thisResult<span class="op">$</span>R2[gg] &lt;-<span class="st"> </span>aFtest<span class="op">$</span>R2</a>
+<a class="sourceLine" id="cb6-23" data-line-number="23">    thisResult<span class="op">$</span>pvalue[gg] &lt;-<span class="st"> </span>aFtest<span class="op">$</span>pvalue</a>
+<a class="sourceLine" id="cb6-24" data-line-number="24">}</a>
+<a class="sourceLine" id="cb6-25" data-line-number="25">thisResult &lt;-<span class="st"> </span>thisResult[<span class="kw">order</span>(thisResult<span class="op">$</span>pvalue),] </a></code></pre></div>
+<p>Under <span class="math inline">\(p&lt;0.001\)</span>, we identify 716 significant genes showing circadian pattern.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw">sum</span>(thisResult<span class="op">$</span>pvalue <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.001</span>)</a>
+<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="co">#&gt; [1] 716</span></a></code></pre></div>
+<p>We similarly estimate the intrinsic effect sizes for: (i) median <span class="math inline">\(r\)</span> of the 7 core circadian genes; (ii) minimum <span class="math inline">\(r\)</span> of the top 100 significant circadian genes.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">coreCircadianGenes &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Arntl&quot;</span>, <span class="st">&quot;Dbp&quot;</span>, <span class="st">&quot;Nr1d1&quot;</span>, <span class="st">&quot;Nr1d2&quot;</span>, <span class="st">&quot;Per1&quot;</span>, <span class="st">&quot;Per2&quot;</span>, <span class="st">&quot;Per3&quot;</span>)</a>
+<a class="sourceLine" id="cb8-2" data-line-number="2">thisResult_core7 &lt;-<span class="st"> </span>thisResult[thisResult<span class="op">$</span>genes <span class="op">%in%</span><span class="st"> </span>coreCircadianGenes,]</a>
+<a class="sourceLine" id="cb8-3" data-line-number="3">r_core7 &lt;-<span class="st"> </span>thisResult_core7<span class="op">$</span>amp<span class="op">/</span><span class="kw">sqrt</span>(thisResult_core7<span class="op">$</span>sigmaA2)</a>
+<a class="sourceLine" id="cb8-4" data-line-number="4"><span class="kw">print</span>(<span class="kw">median</span>(r_core7))</a>
+<a class="sourceLine" id="cb8-5" data-line-number="5"><span class="co">#&gt; [1] 3.576267</span></a>
+<a class="sourceLine" id="cb8-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb8-7" data-line-number="7">  </a>
+<a class="sourceLine" id="cb8-8" data-line-number="8">thisResult_top100 &lt;-<span class="st"> </span>thisResult[<span class="dv">1</span><span class="op">:</span><span class="dv">100</span>,] <span class="co">## please make sure this result is sorted by p-value</span></a>
+<a class="sourceLine" id="cb8-9" data-line-number="9">r_top100 &lt;-<span class="st"> </span>thisResult_top100<span class="op">$</span>amp<span class="op">/</span><span class="kw">sqrt</span>(thisResult_top100<span class="op">$</span>sigmaA2)</a>
+<a class="sourceLine" id="cb8-10" data-line-number="10"><span class="kw">print</span>(<span class="kw">min</span>(r_top100))</a>
+<a class="sourceLine" id="cb8-11" data-line-number="11"><span class="co">#&gt; [1] 2.233527</span></a></code></pre></div>
+<p>The resulting intrinsic effect sizes are 3.58 and 2.23 respectively. By assuming different <span class="math inline">\(\alpha\)</span> to be 0.05, 0.01, 0.001, the power curves with respect to sample size are shown in Figure~S4. We observe that <span class="math inline">\(n=12\)</span> can achieve 97.1% and 50.5% detection power for the two intrinsic effect sizes at <span class="math inline">\(\alpha=0.001\)</span>.</p>
 <p>We first estimate the intrinsic effect sizes from this pilot data for: (i) median r of the 7 core circadian genes; (ii) minimum r of the top 100 significant circadian genes. The resulting intrinsic effect sizes are 3.58 and 2.23 respectively. Then, we can calculate the power at any desired sample size by inserting these estimated r.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="co">## Calculate power using the median r of the 7 core circadian genes</span></a>
-<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="kw">CircaPower</span>(<span class="dt">n=</span><span class="dv">12</span>, <span class="dt">r=</span><span class="fl">3.58</span>, <span class="dt">alpha =</span> <span class="fl">0.05</span>)</a>
-<a class="sourceLine" id="cb6-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb6-4" data-line-number="4"><span class="co">## Calculate power using the minimum r of the top 100 significant circadian genes</span></a>
-<a class="sourceLine" id="cb6-5" data-line-number="5"><span class="kw">CircaPower</span>(<span class="dt">n=</span><span class="dv">12</span>, <span class="dt">r=</span><span class="fl">2.23</span>, <span class="dt">alpha =</span> <span class="fl">0.05</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="co">## Calculate power using the median r of the 7 core circadian genes</span></a>
+<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="kw">CircaPower</span>(<span class="dt">n=</span><span class="dv">12</span>, <span class="dt">r=</span><span class="fl">3.58</span>, <span class="dt">alpha =</span> <span class="fl">0.05</span>)</a>
+<a class="sourceLine" id="cb9-3" data-line-number="3"><span class="co">#&gt; No circadian time is specified, evenly-spaced circadian time design will be used.</span></a>
+<a class="sourceLine" id="cb9-4" data-line-number="4"><span class="co">#&gt; $n</span></a>
+<a class="sourceLine" id="cb9-5" data-line-number="5"><span class="co">#&gt; [1] 12</span></a>
+<a class="sourceLine" id="cb9-6" data-line-number="6"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb9-7" data-line-number="7"><span class="co">#&gt; $r</span></a>
+<a class="sourceLine" id="cb9-8" data-line-number="8"><span class="co">#&gt; [1] 3.58</span></a>
+<a class="sourceLine" id="cb9-9" data-line-number="9"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb9-10" data-line-number="10"><span class="co">#&gt; $power</span></a>
+<a class="sourceLine" id="cb9-11" data-line-number="11"><span class="co">#&gt; [1] 0.9999993</span></a>
+<a class="sourceLine" id="cb9-12" data-line-number="12"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb9-13" data-line-number="13"><span class="co">#&gt; $alpha</span></a>
+<a class="sourceLine" id="cb9-14" data-line-number="14"><span class="co">#&gt; [1] 0.05</span></a>
+<a class="sourceLine" id="cb9-15" data-line-number="15"></a>
+<a class="sourceLine" id="cb9-16" data-line-number="16"><span class="co">## Calculate power using the minimum r of the top 100 significant circadian genes</span></a>
+<a class="sourceLine" id="cb9-17" data-line-number="17"><span class="kw">CircaPower</span>(<span class="dt">n=</span><span class="dv">12</span>, <span class="dt">r=</span><span class="fl">2.23</span>, <span class="dt">alpha =</span> <span class="fl">0.05</span>)</a>
+<a class="sourceLine" id="cb9-18" data-line-number="18"><span class="co">#&gt; No circadian time is specified, evenly-spaced circadian time design will be used.</span></a>
+<a class="sourceLine" id="cb9-19" data-line-number="19"><span class="co">#&gt; $n</span></a>
+<a class="sourceLine" id="cb9-20" data-line-number="20"><span class="co">#&gt; [1] 12</span></a>
+<a class="sourceLine" id="cb9-21" data-line-number="21"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb9-22" data-line-number="22"><span class="co">#&gt; $r</span></a>
+<a class="sourceLine" id="cb9-23" data-line-number="23"><span class="co">#&gt; [1] 2.23</span></a>
+<a class="sourceLine" id="cb9-24" data-line-number="24"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb9-25" data-line-number="25"><span class="co">#&gt; $power</span></a>
+<a class="sourceLine" id="cb9-26" data-line-number="26"><span class="co">#&gt; [1] 0.9873111</span></a>
+<a class="sourceLine" id="cb9-27" data-line-number="27"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb9-28" data-line-number="28"><span class="co">#&gt; $alpha</span></a>
+<a class="sourceLine" id="cb9-29" data-line-number="29"><span class="co">#&gt; [1] 0.05</span></a></code></pre></div>
 </div>
 <div id="intrinsic-effect-size-from-public-databases." class="section level2">
 <h2>4. Intrinsic effect size from public databases.</h2>
@@ -453,8 +593,14 @@ Table1: Intrinsic effect sizes for public available transcriptomic circadian dat
 <div id="ref-cornelissen2014cosinor">
 <p>Cornelissen, Germaine. 2014. “Cosinor-Based Rhythmometry.” <em>Theoretical Biology and Medical Modelling</em> 11 (1). Springer: 16.</p>
 </div>
+<div id="ref-dinglikelihood">
+<p>Ding, Haocheng, Lingsong Meng, Andrew C Liu, Michelle L Gumz, Andrew J Bryant, Colleen A Mcclung, George C Tseng, Karyn A Esser, and Zhiguang Huo. n.d. “Likelihood-Based Tests for Detecting Circadian Rhythmicity and Differential Circadian Patterns in Transcriptomic Applications.” <em>Briefings in Bioinformatics</em>.</p>
+</div>
 <div id="ref-gerstner2016removal">
 <p>Gerstner, Jason R, John N Koberstein, Adam J Watson, Nikolai Zapero, Davide Risso, Terence P Speed, Marcos G Frank, and Lucia Peixoto. 2016. “Removal of Unwanted Variation Reveals Novel Patterns of Gene Expression Linked to Sleep Homeostasis in Murine Cortex.” <em>BMC Genomics</em> 17 (8). Springer: 377–87.</p>
+</div>
+<div id="ref-hodge2015endogenous">
+<p>Hodge, Brian A, Yuan Wen, Lance A Riley, Xiping Zhang, Jonathan H England, Brianna D Harfmann, Elizabeth A Schroder, and Karyn A Esser. 2015. “The Endogenous Molecular Clock Orchestrates the Temporal Separation of Substrate Metabolism in Skeletal Muscle.” <em>Skeletal Muscle</em> 5 (1). Springer: 17.</p>
 </div>
 <div id="ref-hoogerwerf2008transcriptional">
 <p>Hoogerwerf, Willemijntje A, Mala Sinha, Ana Conesa, Bruce A Luxon, Vahakn B Shahinian, Germaine Cornélissen, Franz Halberg, Jonathon Bostwick, John Timm, and Vincent M Cassone. 2008. “Transcriptional Profiling of mRNA Expression in the Mouse Distal Colon.” <em>Gastroenterology</em> 135 (6). Elsevier: 2019–29.</p>

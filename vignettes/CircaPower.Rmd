@@ -20,7 +20,6 @@ knitr::opts_chunk$set(
 ```
 
 ```{r setup, eval=FALSE}
-library(CircaPower)
 ```
 
 
@@ -77,7 +76,7 @@ $$F_{\lambda}^{-1} (\beta| 2 , n - 3) = F_0^{-1} (1 - \alpha| 2 , n - 3)$$
 knitr::include_graphics("power_Ftest.png")
 ```
 
-Under fixed type I error control $\alpha$, the detection power depends on the total effect size $\lambda$ which can be decomposed into three factors: (1) sample size $n$; (2) intrinsic effect size $r=A/\sigma$; (3) sampling design factor $d = \frac{1}{n}\sum_{i=1}^n \sin^2(w(t_i + \phi))$. In our paper, we show that for active design (i.e. evenly spaced ZT distribuiton), the sampling design factor $d$ is a constant of $\frac{1}{2}$ independent of the $\phi$ as long as the number of sampling times is greater or equal to 3 (i.e., phase-invariant property).
+Under fixed type I error control $\alpha$, the detection power depends on the total effect size $\lambda$ which can be decomposed into three factors: (1) **sample size $n$**; (2) **intrinsic effect size $r=A/\sigma$**; (3) **sampling design factor $d = \frac{1}{n}\sum_{i=1}^n \sin^2(w(t_i + \phi))$**. In our paper, we show that for active design (i.e. evenly spaced ZT distribuiton), the sampling design factor $d$ is a constant of $\frac{1}{2}$ independent of the $\phi$ as long as the number of sampling times is greater or equal to 3 (i.e., phase-invariant property).
 
 ## About this tutorial
 
@@ -131,7 +130,7 @@ we summarize the following two key parameters for an active design:
 (ii) total number of samples $n$.
 The number of replicated samples (at the same ZT across all cycles) could be calculated as $n/N_T$.
 Because of the phase invariant property of evenly-spaced sampling design, the detection power only depends on the total number of samples $N_T$ and intrinsic effect size r given type I error control level $\alpha$.  
-```{r, eval=FALSE}
+```{r, eval=TRUE}
 library(CircaPower)
 
 ## Calculate power given (1) sample size n, (2) intrinsic effect size r, and (3) alpha level
@@ -155,7 +154,7 @@ When the number of given irregular circadian times is different from the desired
 (2) ct_estimation = "sampling" where n circadian times are first draw from the kernel density estimated from the empirical distribution of the cts provided and the n circadian times will be used for caclculating d.
 
 
-```{r, eval=FALSE}
+```{r, eval=TRUE}
 library(CircaPower)
 
 ## Use observed time of death from the human post-mortem brain transcriptomic study on Brodmann's area 11 and 47 in the prefrontal cortex as an example.
@@ -170,7 +169,7 @@ CircaPower(n=100, r=0.4, phi=0, cts=cts_Chen, ct_estimation="sampling", alpha = 
 ```
   
 For the inverse problem of deriving sample size given pre-specified power, the "expected" approach is used for estimating d.
-```{r, eval=FALSE}
+```{r, eval=TRUE}
 ## Calculate sample size given (1) pre-specified power, (2) intrinsic effect size r, (3) phase value phi, (4) irregular circadian times cts and (3) alpha level.
 CircaPower(power=0.75, r=0.4, phi=0, cts=cts_Chen, alpha = 0.05)
 
@@ -186,6 +185,7 @@ Briefly,
 The data can be loaded using the following way:
 
 ```{r}
+library(CircaPower)
 data(mus_expr)
 data(mus_pheno)
 stopifnot(colnames(mus_expr) == mus_pheno$geo_accession)
@@ -197,6 +197,8 @@ head(mus_pheno)
 With this pilot data, we perform genome-wide circadian rhythmicity detection using the cosinor method (@dinglikelihood). This step may take 30 seconds.
 
 ```{r}
+library(diffCircadian)
+
 tt <- mus_pheno$CT
 i <- 1
 
@@ -252,7 +254,7 @@ can achieve 97.1\% and 50.5\% detection power for the two intrinsic effect sizes
 
 We first estimate the intrinsic effect sizes from this pilot data for: (i) median r of the 7 core circadian genes; (ii) minimum r of the top 100 significant circadian genes. The resulting intrinsic effect sizes are 3.58 and 2.23 respectively. Then, we can calculate the power at any desired sample size by inserting these estimated r.
 
-```{r, eval=FALSE}
+```{r, eval=TRUE}
 ## Calculate power using the median r of the 7 core circadian genes
 CircaPower(n=12, r=3.58, alpha = 0.05)
 
