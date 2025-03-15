@@ -37,6 +37,7 @@ In passive design, investigators have no control of the collected circadian time
 
 
 ## Statistical method
+**Update on 03/14/2025**: The sampling design factor is corrected as $d = \frac{1}{n}\sum_i \cos^2(w(t_i - \phi)) - (\frac{1}{n}\sum_i\cos(\omega(t_i-\phi)))^2$ as indicated in Dr. Westermark's commentary (@Westermark). 
 The sinusoidal wave curve assumed in the cosinor model (@cornelissen2014cosinor) is illustrated in Figure 1, where y is the expression value for a gene, t is the Zeitgeber time (ZT; standardized diurnal time with ZT0 for the beginning of day and ZT12 for the beginning of night), M is the MESOR (Midline Estimating Statistic Of Rhythm, a rhythm-adjusted mean), A is the amplitude and $\phi$ is the phase shift. $\omega$ is the frequency of the sinusoidal wave i.e, $\omega = \frac{2\pi}{Period}$. Without loss of generality, we set $period = 24$ hours to mimic the diurnal period. 
 
 For a given sample $i$ ($1\le i \le n$, $n$ is the total number of samples), denote by $y_i$ the expression value of a gene and 
