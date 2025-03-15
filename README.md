@@ -1,6 +1,7 @@
 # CircaPower
 Github repository for circadian power calculation (CircaPower)
 
+**Update on 3/14/2025** The non-central parameter (ncp) formula is corrected as indicated in the Dr. Pål O. Westermark's commentary *Minding averages: Comment on “Experimental design and power calculation in omics circadian rhythmicity detection using the cosinor model” by Zong et al.*.
 
 ## Install This Package from github
 * In R console
@@ -12,11 +13,11 @@ install_github("https://github.com/circaPower/CircaPower")
 
 ## Citation
 
-* Wei Zong, Marianne L. Seney, Kyle D. Ketchesin, Michael T. Gorczyca, Andrew C. Liu, Karyn A. Esser, George C. Tseng*, Colleen A. McClung* and Zhiguang Huo*. Experimental Design and Power Calculation in Omics Circadian Rhythmicity Detection. (Submitted, *: co-coresponding authors)
+* Wei Zong, Marianne L. Seney, Kyle D. Ketchesin, Michael T. Gorczyca, Andrew C. Liu, Karyn A. Esser, George C. Tseng*, Colleen A. McClung* and Zhiguang Huo*. Experimental Design and Power Calculation in Omics Circadian Rhythmicity Detection. (*: co-coresponding authors)
 
-* The manuscript can be found here: (to be updated)
+* The manuscript can be found here: [CircaPower](https://pmc.ncbi.nlm.nih.gov/articles/PMC10425922/)
 
-## Full tutorial (to be updated)
+## Full tutorial
 
 - Circadian power calculation (active design) when the circadian times are evenly spaced.
 - Circadian power calculation (passive design) given irregular circadian time distribuiton.
