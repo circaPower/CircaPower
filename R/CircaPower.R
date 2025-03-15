@@ -1,4 +1,4 @@
-##' Analytical circadian power calculation based on a cosiner model.
+##' Circadian power calculation based on a cosiner model.
 ##'
 ##' Exactly one of the parameters 'n','power', 'r' and 'alpha' must be passed as NULL, and that parameter is determined from the others.  Notice that alpha has non-NULL default so NULL must be explicitly passed if you want to compute it.
 ##' @title CircaPower
