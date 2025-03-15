@@ -29,11 +29,11 @@ http://htmlpreview.github.io/?https://github.com/circaPower/CircaPower/blob/main
 ## Short tutorial 
 
 * Model assumption: 
-  + ![equation](https://latex.codecogs.com/svg.image?y_i%3DA%5Csin%28%5Comega%28t_i&plus;%5Cphi%29%29&plus;M&plus;%5Cvarepsilon_i)
-  + ![equation](https://latex.codecogs.com/svg.image?%5Cvarepsilon_i%20%5Coverset%7Biid%7D%7B%5Csim%7D%20%5Ctextit%7BN%7D%280%2C%20%5Csigma%5E2%29)
-  + ![equation](https://latex.codecogs.com/svg.image?A): Amplitude
-  + ![equation](https://latex.codecogs.com/svg.image?%5Csigma): Noise level
-  + ![equation](https://latex.codecogs.com/svg.image?r%3DA/%5Csigma): Intrinsic effect size. Usually r could be estimated from your pilot data. If there is no pilot data, please refers to the full tutorial, where we documented the intrinsic effect sizes from public databases for varies tissues in human and mouse.
+  + y<sub>i</sub> = A sin(&omega;(t<sub>i</sub> + &phi;)) + M + &varepsilon;<sub>i</sub>
+  + &varepsilon;<sub>i</sub> ~ N(0, &sigma;<sup>2</sup>)
+  + A: Amplitude
+  + &sigma;: Noise level
+  + r = A/&sigma;: Intrinsic effect size. Usually r could be estimated from your pilot data. If there is no pilot data, please refers to the full tutorial, where we documented the intrinsic effect sizes from public databases for varies tissues in human and mouse.
   
 * Example 1 (active design): assuming the evenly spaced circadian time distribution (i.e., every 4 hours per cycle).
 
