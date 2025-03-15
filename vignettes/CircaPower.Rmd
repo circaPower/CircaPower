@@ -45,7 +45,7 @@ We assume sinusoidal wave function:
 
 \begin{equation}
 \label{eq:sin1}
-y_i=A\sin(\omega(t_i+\phi))+M+\varepsilon_i, 
+y_i=A\cos(\omega(t_i-\phi))+M+\varepsilon_i, 
 \end{equation}
 
 \noindent where $\varepsilon_i$ is the error term for sample $i$; 
@@ -53,7 +53,7 @@ we assume $\varepsilon_i$'s are identically and independently distributed ($i.i.
 where $\sigma$ is the noise level. 
 
 ```{r ,echo = FALSE,out.width='50%',fig.align="center",fig.cap="Figure 1: The sinusoidal wave curve underlying circadian rhythmicity power calculation framework."}
-knitr::include_graphics("circadianCurve.png")
+knitr::include_graphics("circadianCurve_cosine.png")
 ```
 
 Based on this linear model framework, we could derive a F test statistic $F^{stat}$.
@@ -64,7 +64,7 @@ where $2$ and $n-3$ are the degrees of freedom of the $F$ distribution, and $f_0
 
 Under the alternative hypothesis that there exists circadian rhythmicity pattern (i.e., $A \ne 0$), 
 $$F^{stat} \sim  f_\lambda(\cdot|2,n-3)$$
-where $2$ and $n-3$ are the degrees of freedom of the $F$ distribution, and $f_\lambda$ denotes a non-central $F$ distribution with non-centrality parameter $\lambda$, with $\lambda  = \frac{A^2 }{\sigma^2} \sum_i \sin^2(w(t_i + \phi))$. 
+where $2$ and $n-3$ are the degrees of freedom of the $F$ distribution, and $f_\lambda$ denotes a non-central $F$ distribution with non-centrality parameter $\lambda$, with $\lambda  = \frac{nA^2 }{\sigma^2} [\frac{1}{n}\sum_i \cos^2(w(t_i - \phi)) - (\frac{1}{n}\sum_i\cos(\omega(t_i-\phi)))^2]$. 
 
 
 Figure 2 shows the relationship between the null and alternative distributions. By assuming the rejection boundary is at alpha level $\alpha$, the relationship between $\alpha$ and the power $1-\beta$ is:
@@ -76,7 +76,7 @@ $$F_{\lambda}^{-1} (\beta| 2 , n - 3) = F_0^{-1} (1 - \alpha| 2 , n - 3)$$
 knitr::include_graphics("power_Ftest.png")
 ```
 
-Under fixed type I error control $\alpha$, the detection power depends on the total effect size $\lambda$ which can be decomposed into three factors: (1) **sample size $n$**; (2) **intrinsic effect size $r=A/\sigma$**; (3) **sampling design factor $d = \frac{1}{n}\sum_{i=1}^n \sin^2(w(t_i + \phi))$**. In our paper, we show that for active design (i.e. evenly spaced ZT distribuiton), the sampling design factor $d$ is a constant of $\frac{1}{2}$ independent of the $\phi$ as long as the number of sampling times is greater or equal to 3 (i.e., phase-invariant property).
+Under fixed type I error control $\alpha$, the detection power depends on the total effect size $\lambda$ which can be decomposed into three factors: (1) **sample size $n$**; (2) **intrinsic effect size $r=A/\sigma$**; (3) **sampling design factor $d = \frac{1}{n}\sum_i \cos^2(w(t_i - \phi)) - (\frac{1}{n}\sum_i\cos(\omega(t_i-\phi)))^2$**. In our paper, we show that for active design (i.e. evenly spaced ZT distribuiton), the sampling design factor $d$ is a constant of $\frac{1}{2}$ independent of the $\phi$ as long as the number of sampling times is greater or equal to 3 (i.e., phase-invariant property).
 
 ## About this tutorial
 
