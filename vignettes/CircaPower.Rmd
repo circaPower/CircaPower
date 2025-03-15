@@ -3,7 +3,7 @@ title: "CircaPower"
 output: rmarkdown::html_vignette
 bibliography: ref.bib
 author:
-- name: Wei Zong, Zhiguang Huo
+- name: Wei Zong, Zhiguang Huo, Ruofei Yin
 date: "`r Sys.Date()`"
 vignette: >
   %\VignetteIndexEntry{CircaPower}
