@@ -1,6 +1,4 @@
 # CircaPower
-Github repository for circadian power calculation (CircaPower)
-
 **Update on 3/14/2025** The non-central parameter (ncp) formula is corrected as indicated in the Dr. Pål O. Westermark's commentary *Minding averages: Comment on “Experimental design and power calculation in omics circadian rhythmicity detection using the cosinor model” by Zong et al.*.
 
 ## Install This Package from github
