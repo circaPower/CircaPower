@@ -11,10 +11,9 @@ install_github("https://github.com/circaPower/CircaPower")
 
 ## Citation
 
-* Wei Zong, Marianne L. Seney, Kyle D. Ketchesin, Michael T. Gorczyca, Andrew C. Liu, Karyn A. Esser, George C. Tseng*, Colleen A. McClung* and Zhiguang Huo*. Experimental Design and Power Calculation in Omics Circadian Rhythmicity Detection. (*: co-coresponding authors)
+* [CircaPower](https://pmc.ncbi.nlm.nih.gov/articles/PMC10425922/) manuscript: Wei Zong, Marianne L. Seney, Kyle D. Ketchesin, Michael T. Gorczyca, Andrew C. Liu, Karyn A. Esser, George C. Tseng*, Colleen A. McClung* and Zhiguang Huo*. Experimental Design and Power Calculation in Omics Circadian Rhythmicity Detection. (*: co-coresponding authors)
 
-* The manuscript can be found here: [CircaPower](https://pmc.ncbi.nlm.nih.gov/articles/PMC10425922/)
-
+* Commentary (link to be updated): Pål O. Westermark. Minding averages: Comment on “Experimental design and power calculation in omics circadian rhythmicity detection using the cosinor model” by Zong et al.
 ## Full tutorial
 
 - Circadian power calculation (active design) when the circadian times are evenly spaced.
