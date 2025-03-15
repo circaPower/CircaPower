@@ -29,7 +29,7 @@ http://htmlpreview.github.io/?https://github.com/circaPower/CircaPower/blob/main
 ## Short tutorial 
 
 * Model assumption: 
-  + y<sub>i</sub> = A sin(&omega;(t<sub>i</sub> + &phi;)) + M + &varepsilon;<sub>i</sub>
+  + y<sub>i</sub> = A cos(&omega;(t<sub>i</sub> - &phi;)) + M + &varepsilon;<sub>i</sub>
   + &varepsilon;<sub>i</sub> ~ N(0, &sigma;<sup>2</sup>)
   + A: Amplitude
   + &sigma;: Noise level
