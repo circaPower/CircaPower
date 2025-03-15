@@ -4,7 +4,7 @@
 ##' @title CircaPower
 ##' @param n Sample size.
 ##' @param power Statistical power.
-##' @param r Intrinsic effect size. r=A/\eqn{\sigma}, where A is the amplitude of the sinusoidal curve: \eqn{y = A * sin(2\pi/period * (\phi + cts)) + M + \sigma}, and \eqn{\sigma} is the noise level of the independent Normal error term \eqn{N(0,\sigma^2)}.
+##' @param r Intrinsic effect size. r=A/\eqn{\sigma}, where A is the amplitude of the sinusoidal curve: \eqn{y = A * cos(2\pi/period * (\phi - cts)) + M + \sigma}, and \eqn{\sigma} is the noise level of the independent Normal error term \eqn{N(0,\sigma^2)}.
 ##' @param phi Phase shift \eqn{\phi} of the sinusoidal curve. Default is 0.
 ##' @param period Period of the sinusoidal curve. Default is 24.
 ##' @param cts Circadian times of the putative samples. If cts is NULL, evenly-spaced circadian time design will be used. If cts is not NULL, see more options on ct_estimation.
@@ -38,12 +38,12 @@ CircaPower = function(n=NULL, power=NULL, r=NULL, phi=0, period = 24, cts=NULL, 
     
   }else if(is.null(n)){
     message("The sample size n unspecified, expected sampling design factor is directly estimated from the circadian time points provided. ct_estimation argument is disabled.")
-    d = sum(sin(w*(cts+phi))^2)/length(cts) #E[d]
-    
+    d = (sum(cos(w*(cts-phi))^2))/length(cts) - (sum(cos(w*(cts-phi)))/length(cts))^2 #E[d]
+
   }else if(!is.null(n)){
     if(ct_estimation == "expected"){
       message("Since ct_estimation is 'expected' (default), the expected sampling design factor is directly estimated from the circadian time points provided.")
-      d = sum(sin(w*(cts+phi))^2)/length(cts) #E[d]
+      d = (sum(cos(w*(cts-phi))^2))/length(cts) - (sum(cos(w*(cts-phi)))/length(cts))^2 #E[d]
     }else if(ct_estimation == "sampling"){
       message("Since ct_estimation is 'sampling', circadian time points of size n will be draw from the Kernel density estimated from the circadian time points provided. The sampling design factor using these drawn samples.")
       cts = cts %% period #fold cts into one cycle
@@ -54,7 +54,7 @@ CircaPower = function(n=NULL, power=NULL, r=NULL, phi=0, period = 24, cts=NULL, 
       y.dens = dens$y[dens$x>0 & dens$x<period]
       
       sample_cts = sample(x.dens, n, prob = y.dens)
-      d = sum(sin(w*(sample_cts+phi))^2)/length(sample_cts)
+      d = (sum(cos(w*(sample_cts-phi))^2))/length(sample_cts) - (sum(cos(w*(sample_cts-phi)))/length(sample_cts))^2
     } else {
       stop("internal error 1, please report this bug at https://github.com/circaPower/CircaPower/issues")    	
     }
